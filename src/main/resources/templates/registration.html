@@ -1,0 +1,43 @@
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/login-layout}">
+<head>
+    <title>Travel blog</title>
+</head>
+<body>
+<div layout:fragment="contain-login" class="container">
+    <h2>Add author</h2>
+    <form class="form-horizontal" th:action="@{/authors/add}" th:object="${author}" method="post">
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="name">Nume</label>
+            <div class="col-sm-4">
+                <input class="form-control" id="name" type="text" th:field="*{name}"/>
+                <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="email">Email</label>
+            <div class="col-sm-4">
+                <input class="form-control" id="email" type="text" th:field="*{email}"/>
+                <small class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="birthDate">Data nasterii</label>
+            <div class="col-sm-4">
+                <input class="form-control" id="birthDate" type="date" th:field="*{birthDate}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button class="btn btn-default" type="submit">Submit</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
+</body>
+</html>
