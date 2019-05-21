@@ -1,3 +1,5 @@
+<c:set var="contextPath" value="${pageContext.request.contextPath}" xmlns:c="http://www.springframework.org/schema/beans"/>
+
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
     <head>
@@ -10,17 +12,18 @@
         <nav class="navbar navbar-inverse navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand" th:href="@{/login/registration}"> </a>
+                    <a class="navbar-brand" th:href="@{/trips}">Trips</a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a th:href="@{/login}">Log in</a></li>
+                        <li><a th:href="@{/profile}">Profile</a></li>
+                        <li><a th:href="@{/profile/logout}">Log out</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
 
-        <div layout:fragment="continut">
+        <div layout:fragment="content">
 
         </div>
     </body>

@@ -1,7 +1,9 @@
 package com.sci.ro.finalproject.finalproject.service;
 
+import com.sci.ro.finalproject.finalproject.model.CustomTripsDetails;
+import com.sci.ro.finalproject.finalproject.model.CustomUserDetails;
 import com.sci.ro.finalproject.finalproject.model.Role;
-import com.sci.ro.finalproject.finalproject.model.User;
+import com.sci.ro.finalproject.finalproject.model.Users;
 import com.sci.ro.finalproject.finalproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,14 +25,15 @@ public class UserDetailsServiceImpl implements UserDetailsService{
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) {
-        User user = userRepository.findByUsername(username);
+        Users user = userRepository.findByUsername(username);
         if (user == null) throw new UsernameNotFoundException(username);
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        for (Role role : user.getRoles()){
-            grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
-        }
 
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
+        grantedAuthorities.add(new SimpleGrantedAuthority("rol"));
+//        for (Role role : user.getRoles()){
+//            grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
+//        }
+        return new CustomUserDetails(user.getUsername(), user.getPassword(), grantedAuthorities,user.getPasswordConfirm(), user.getId(),user.getRole(),user.getFirstName());
     }
 }

@@ -1,11 +1,11 @@
 package com.sci.ro.finalproject.finalproject.service;
 
-import com.sci.ro.finalproject.finalproject.model.User;
+import com.sci.ro.finalproject.finalproject.model.Users;
 
 public interface UserService {
-    void save(User user);
+    void save(Users user);
 
-    User findByUsername(String username);
+    Users findByUsername(String username);
 
 
 }

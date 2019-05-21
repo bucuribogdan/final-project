@@ -1,10 +1,10 @@
 package com.sci.ro.finalproject.finalproject.model;
 
-import com.sun.prism.Image;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
@@ -12,39 +12,34 @@ import java.time.LocalDate;
 public class Trip {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
 
-    private long idProfile;
+//    @Size(min = 3, max = 30, message =
+    @NotNull
+    private String trip_name;
 
-    @Size(min = 3, max = 30, message = "Cel putin 3 caractere")
-    private String tripName;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Column(name="datefrom")
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @Column(name="date_from")
     private LocalDate dateFrom;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Column(name="dateto")
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @Column(name="date_to")
     private LocalDate dateTo;
 
-    @Size(min = 25, max = 30000, message = "Cel putin 3 caractere")
+    //    @Size(min = 25, max = 30000, message = "Cel putin 3 caractere")
+    @Column(name="impressions")
     private String impressions;
 
-    public void setIdProfile(long idProfile) {
-        User user =new User();
-        this.idProfile = user.getId();
+    public String getTrip_name() {
+        return trip_name;
     }
 
-    public long getIdProfile() {
-        return idProfile;
+    public void setTrip_name(String trip_name) {
+        this.trip_name = trip_name;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
-    }
-
-    public void setTripName(String tripName) {
-        this.tripName = tripName;
     }
 
     public void setDateFrom(LocalDate dateFrom) {
@@ -59,12 +54,9 @@ public class Trip {
         this.impressions = impressions;
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public String getTripName() {
-        return tripName;
+    public Long getId() {
+        return id;
     }
 
     public LocalDate getDateFrom() {

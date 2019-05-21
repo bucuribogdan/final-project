@@ -1,0 +1,15 @@
+aside {
+  position: relative;
+  float:right;
+  width:200px;
+  top: 0px;
+  bottom: 0px;
+}
+
+section{
+  position: relative;
+  float:left;
+  width:170px;
+  top: 100px;
+  bottom: 0px;
+}

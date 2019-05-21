@@ -1,6 +1,6 @@
 package com.sci.ro.finalproject.finalproject.validator;
 
-import com.sci.ro.finalproject.finalproject.model.User;
+import com.sci.ro.finalproject.finalproject.model.Users;
 import com.sci.ro.finalproject.finalproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,12 +15,12 @@ public class UserValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return User.class.equals(aClass);
+        return Users.class.equals(aClass);
     }
 
     @Override
     public void validate(Object o, Errors errors) {
-        User user = (User) o;
+        Users user = (Users) o;
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "NotEmpty");
         if (user.getUsername().length() < 6 || user.getUsername().length() > 32) {

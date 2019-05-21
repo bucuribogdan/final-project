@@ -1,10 +1,157 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"
+       xmlns:c="http://www.springframework.org/schema/beans"/>
 
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Edit your profile - The Travel Hack</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+            integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+</head>
+<body style=" margin-left:10px;
+margin-right:10px;
+margin-top:20px;
+  background:url(http://www.barraques.cat/imgdirs/big/53/537714_beach-wallpaper-download.jpg);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  height: 100%;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;">
+
+    //In this navigation bar, we have inserted the left side that directs the user to the profile, and on the right side
+    the following buttons can be accessed: Profile (which also shows the name of the logged-in user),
+    Trips that direct the user to the page with all the user's travels and Log out to disconnect.
+<nav style="background-color:white; height:60;">
+    <div sec:authorize="isAuthenticated()">
+        <div class="container" style="margin-top:auto;">
+            <div class="navbar-header">
+                <a class="navbar-brand" th:href="@{/profile}">
+
+                    <img src="https://thetravelhack.com/wp-content/uploads/2014/06/LOGO-BLUE-LIGHT-TAG.png" alt="Travel"
+                         width="120" height="" style="margin-top: 0px;margin-left:0px;"/>
+                </a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right" style="margin-top:6;">
+                    <li><a th:href="@{/profile} ">Profile:<span
+                            th:text="${#authentication.getPrincipal().getFirstName()}"></span></a></li>
+                    <li><a th:href="@{/trips}">Trips</a></li>
+                    <li><a th:href="@{/login}">Log out</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+<br><br>
+<div class="container" align="left">
+    <div class="trip-box"
+         style="width:800px;
+         margin:0 auto;
+                	top: 30px;
+               		bottom: 0px;
+                	border: 2px solid powderblue;
+                	padding: 30px;
+                	background-color:white;
+                    text-align:left;
+                    border-spacing: 15px 1px;;">
+
+
+        <form class="form-horizontal" method="post" th:action="@{/trips/add}" th:object="${trips}">
+
+            <div class="form-group ${status.error ? 'has-error' : ''}" style="margin-left:15px;">
+                <label class="control-label" type="text" path="trip_name" placeholder="Trip name"
+                       autofocus="true"><b>Trip name</b></label>
+                <input type="text" style="width: 30%;border:1px solid powderblue;" placeholder="Trip name" id="trip_name"
+                       class="form-control" name="trip_name" th:field="*{trip_name}" required/>
+            </div>
+
+            <hr>
+            <div class="form-group ${status.error ? 'has-error' : ''}" style="margin-left:15px;margin-left:15px;">
+                <label class="control-label" type="text" path="impressions" placeholder="Impressions"
+                       autofocus="true"><b>Impressions</b></label>
+                <textarea rows="4" name="impressions" wrap="hard" style="width: 100%;border: 1px solid powderblue;"
+                          id="impressions" th:value="*{impressions}"></textarea>
+            </div>
+
+
+            <!--<div class="form-group ${status.error ? 'has-error' : ''}" style="margin-left:15px;">-->
+                <!--<label class="control-label" type="text" path="photo1" placeholder="Photo 1"-->
+                       <!--autofocus="true" for="photo1"><b>Photo 1:</b></label>-->
+                <!--<form action="/uploadImage" method="post" id="photo1" style="border: 1px sol
+                id powderblue;"-->
+                      <!--accept="image/x-png,image/gif,image/jpeg">-->
+                    <!--<input type="file" name="photo1">-->
+                <!--</form>-->
+            <!--</div>-->
+
+
+            <!--<tr>-->
+                <!--<div class="form-group ${status.error ? 'has-error' : ''}" style="margin-left:15px;">-->
+                    <!--<label class="control-label" type="text" path="photo2" placeholder="Photo 2"-->
+                           <!--autofocus="true" for="photo2"><b>Photo 2:</b></label>-->
+                    <!--<form action="/uploadImage" method="post" id="photo2"-->
+                          <!--accept="image/x-png,image/gif,image/jpeg">-->
+                        <!--<input type="file" name="photo2">-->
+                    <!--</form>-->
+                <!--</div>-->
+            <!--</tr>-->
+
+
+            <tr>
+                <div class="form-group">
+                    <label class="control-label col-sm-3" for="dateFrom">Date from:</label>
+                    <div class="col-sm-3">
+                        <input class="form-control" id="dateFrom" type="date" style="border: 1px solid powderblue;"
+                               th:field="*{dateFrom}"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-3" for="dateTo">Date to:</label>
+                    <div class="col-sm-3">
+                        <input class="form-control" id="dateTo" type="date" align="left"
+                               style="border: 1px solid powderblue;"
+                               th:field="*{dateTo}"/><br><br>
+                    </div>
+                </div>
+            </tr>
+
+            <p></p>
+
+
+            <div class="form-group" align="center">
+                <button class="btn btn-lg btn-primary btn-block"
+                        style="width:50%;display: flex; justify-content: center;"
+                        type="submit">Save profile
+                </button>
+            </div>
+
+
+        </form>
+    </div>
+
+
+</div>
+</div>
+<div class="footer" style="position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 25px;
+  background-color: white;
+  color: black;
+  font-weight:bold;
+  text-align: center;">
+    <p>©The Travel Hack - 2019. EU legislation: By signing in, I agree that Travel could set cookies in my
+        browser.</p>
+</div>
 </body>
 </html>
