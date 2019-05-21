@@ -1,38 +1,103 @@
-
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/logintemplate}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns="http://www.w3.org/1999/html" layout:decorate="~{layout/body}">
 <head>
-    <title>Travel blog</title>
+    <title>The Travel Hack - connect</title>
 </head>
-<body>
+<body style="  padding: 25px;
+  background:url(http://www.barraques.cat/imgdirs/big/53/537714_beach-wallpaper-download.jpg);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  height: 100%;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;">
+
+<div layout:fragment="style" class="container">
+    <h2></h2>
+
+    <div class="login-box " style="position: relative;
+  float:right;
+  width:330px;
+  top: 0px;
+  bottom: 0px;
+  border: 2px solid powderblue;
+  padding: 30px;
+background-color:white;">
+        <aside>
+            <div class="login-logo">
+                <img src="https://thetravelhack.com/wp-content/uploads/2014/06/LOGO-BLUE-LIGHT-TAG.png" alt="Travel"
+                     class="center" width="250" height="">
+            </div>
+            <form class="form-horizontal" th:action="@{/login}" th:object="${profile}" method="post">
+                <div class="sign-in-title">
+                    <h1 class="sign-in-title-greeting" id="mbr-login-greeting" style="font-size:200%;font-weight:bold;font-family:helvetica;text-align: center;">
+                        Log in
+                    </h1>
+                </div>
+
+                <div class="form-group ${error != null ? 'has-error' : ''}">
 
 
-<div layout:fragment="login" class="container">
-    <h2>Travel blog</h2>
-    <form class="form-horizontal" th:action="@{/login}" th:object="${profile}" method="post">
-        <h2 class="form-heading">Log in</h2>
+                    <label class="control-label" for="username" align="center">Username</label>
+                    <br><input name="username" id="username"  type="text" align="center"
+                               class="form-control" placeholder="Username" autofocus="true"/>
+                </div>
 
-        <div class="form-group ${error != null ? 'has-error' : ''}">
-            <label class="control-label col-sm-2" for="username">Username</label>
-            <input name="username" id="username" type="text" class="form-control" placeholder="Username"
-                   autofocus="true"/>
+                <div class="form-group ${error != null ? 'has-error' : ''}">
+                    <label class="control-label" for="password" align="center">Password</label>
+                    <input name="password" id="password" type="password" align="center" class="form-control" placeholder="Password"/>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
+                    <p class="row">
+                    <span class="one-half column stay-signed-in">
+                        <input id="persistent" name="persistent" value="y" type="checkbox" tabindex="3" checked="">
+                        <label for="persistent">Stay signed in</label>
+                    </span>
 
-        </div>
-        <div class="form-group ${error != null ? 'has-error' : ''}">
-        <span>Password</span>
-            <input name="password" id="password" type="password" class="form-control" placeholder="Password"/>
+                    </p>
+                </div>
+            </form>
+            <h4 class="text-center">
+                <a th:href="@{/login/registration}">Create an account</a>
+            </h4>
+        </aside>
+    </div>
 
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    <div id="login-info-box" class="info-box" style="display:block;
+    position: relative;
+  float:left;
+  width:800px;
+  top: 40px;
+  bottom: 0px;
+  padding: 30px;border-spacing: 200px;">
+        <section>
 
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
-        </div>
-    </form>
-    <h4 class="text-center">
-        <a th:href="@{/login/registration}">Create an account</a>
-    </h4>
+
+            <h3 class="title" style="font-weight:bold;font-family:helvetica;text-align:center;color:white">
+                Explore the interactive map, filter information and discover informations about new places.</h3>
+            <p class="desc" style="font-size:150%;font-family:arial;">The Travel Hack offers you the tourist map of Europe, with the possibility to choose one (or all) of
+                the 9 tourist regions, with the possibility of establishing a route with the route planner.</p>
+            <p class="desc" style="font-size:150%;font-family:arial;">The Travel Hack's goal is to help users create holiday plans, discover new places,
+                optimize the cost of a vacation and gain information to make the travel safer and easier. Choose your
+                destination, analyze sights and plan your holiday to the smallest detail!</p>
+        </section>
+
+    </div>
+    <div class="footer" style="position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 25px;
+  background-color: white;
+  color: black;
+  font-weight:bold;
+  text-align: center;">
+        <p>©The Travel Hack - 2019. EU legislation: By signing in, I agree that Travel could set cookies in my browser.</p>
+    </div>
 </div>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
+</div>
 </body>
 </html>

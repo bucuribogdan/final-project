@@ -1,6 +1,6 @@
 package com.sci.ro.finalproject.finalproject.service;
 
-import com.sci.ro.finalproject.finalproject.model.User;
+import com.sci.ro.finalproject.finalproject.model.Users;
 import com.sci.ro.finalproject.finalproject.repository.RoleRepository;
 import com.sci.ro.finalproject.finalproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +19,15 @@ public class UserServiceImpl implements UserService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
-    public void save(User user) {
+    public void save(Users user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setRoles(new HashSet<>(roleRepository.findAll()));
+        user.setPasswordConfirm(bCryptPasswordEncoder.encode(user.getPasswordConfirm()));
+//        user.setRoles(new HashSet<>(roleRepository.findAll()));
         userRepository.save(user);
     }
 
     @Override
-    public User findByUsername(String username) {
+    public Users findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 }

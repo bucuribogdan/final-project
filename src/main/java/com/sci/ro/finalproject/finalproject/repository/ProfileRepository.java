@@ -1,7 +1,7 @@
 package com.sci.ro.finalproject.finalproject.repository;
 
-import com.sci.ro.finalproject.finalproject.model.User;
+import com.sci.ro.finalproject.finalproject.model.Users;
 import org.springframework.data.repository.CrudRepository;
 
-public interface ProfileRepository extends CrudRepository<User, Integer> {
+public interface ProfileRepository extends CrudRepository<Users, Long> {
 }

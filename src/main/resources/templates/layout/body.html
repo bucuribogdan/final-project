@@ -7,22 +7,6 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     </head>
     <body>
-        <nav class="navbar navbar-inverse navbar-static-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <a class="navbar-brand" th:href="@{/authors}">Authors</a>
-                </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a th:href="@{/authors/profile}">Profile</a></li>
-                        <li><a th:href="@{/authors/logout}">Log out</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <div layout:fragment="login">
-
-        </div>
+        <div layout:fragment="style"></div>
     </body>
 </html>

@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "profile")
-public class User {
+public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -15,11 +15,12 @@ public class User {
     @Size(min = 6, max = 30, message = "Cel putin 6 caractere.")
     private String username;
 
-    @Size(min = 6, max = 30, message = "Cel putin 6 caractere.")
+    @Size(min = 6, max = 4000000, message = "Cel putin 6 caractere.")
     @NotBlank
     private String password;
 
-    @Transient
+    @Size(min = 6, max = 4000000, message = "Cel putin 6 caractere.")
+    @NotBlank
     private String passwordConfirm;
 
     @Size(min = 2, max = 30, message = "Cel putin 2 caractere.")
@@ -35,8 +36,15 @@ public class User {
 
     private String phone;
 
-    @ManyToMany
-    private Set<Role> roles;
+    private String role;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 
     public Long getId() {
         return id;
@@ -68,14 +76,6 @@ public class User {
 
     public void setPasswordConfirm(String passwordConfirm) {
         this.passwordConfirm = passwordConfirm;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
     }
 
     public void setFirstName(String firstName) {
