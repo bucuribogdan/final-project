@@ -5,37 +5,65 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
+
+/**
+ * This class is used to save and import the attributes of the Trip object.
+ */
 @Entity
-@Table(name ="trips")
+@Table(name = "trips")
 public class Trip {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-//    @Size(min = 3, max = 30, message =
-    @NotNull
-    private String trip_name;
 
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
-    @Column(name="date_from")
+    @NotNull
+    @Column(name = "trip_name")
+    private String tripName;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "date_from")
     private LocalDate dateFrom;
 
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
-    @Column(name="date_to")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "date_to")
     private LocalDate dateTo;
 
-    //    @Size(min = 25, max = 30000, message = "Cel putin 3 caractere")
-    @Column(name="impressions")
+
+    @Column(name = "impressions")
     private String impressions;
 
-    public String getTrip_name() {
-        return trip_name;
+    @Column(name = "first_photo")
+    private String firstPhoto;
+
+    @Column(name = "second_photo")
+    private String secondPhoto;
+
+    public String getFirstPhoto() {
+        return firstPhoto;
     }
 
-    public void setTrip_name(String trip_name) {
-        this.trip_name = trip_name;
+    public void setFirstPhoto(String firstPhoto) {
+        this.firstPhoto = firstPhoto;
+    }
+
+    public String getSecondPhoto() {
+        return secondPhoto;
+    }
+
+    public void setSecondPhoto(String secondPhoto) {
+        this.secondPhoto = secondPhoto;
+    }
+
+    public String getTripName() {
+        return tripName;
+    }
+
+    public void setTripName(String tripName) {
+        this.tripName = tripName;
     }
 
     public void setId(Long id) {

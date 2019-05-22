@@ -1,40 +1,49 @@
 package com.sci.ro.finalproject.finalproject.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.util.Set;
 
+
+/**
+ * This class is used to save and import the attributes of the User object.
+ */
 @Entity
 @Table(name = "profile")
 public class Users {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Size(min = 6, max = 30, message = "Cel putin 6 caractere.")
+
     private String username;
 
-    @Size(min = 6, max = 4000000, message = "Cel putin 6 caractere.")
-    @NotBlank
+
     private String password;
 
-    @Size(min = 6, max = 4000000, message = "Cel putin 6 caractere.")
-    @NotBlank
+
+    @Column(name = "password_confirm")
     private String passwordConfirm;
 
-    @Size(min = 2, max = 30, message = "Cel putin 2 caractere.")
+
+    @Column(name = "first_name")
     private String firstName;
 
-    @Size(min = 2, max = 30, message = "Cel putin 2 caractere.")
+
+    @Column(name = "last_name")
     private String lastName;
 
-    @Size(min = 6, max = 30, message = "Cel putin 2 caractere.")
+
     private String city;
+
 
     private String adress;
 
+
     private String phone;
+
 
     private String role;
 
