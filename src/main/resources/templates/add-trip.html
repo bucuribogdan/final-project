@@ -2,7 +2,8 @@
        xmlns:c="http://www.springframework.org/schema/beans"/>
 
 <!DOCTYPE HTML>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Edit your profile - The Travel Hack</title>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"
@@ -26,9 +27,9 @@ margin-top:20px;
   background-position: center;
   background-size: cover;">
 
-    //In this navigation bar, we have inserted the left side that directs the user to the profile, and on the right side
-    the following buttons can be accessed: Profile (which also shows the name of the logged-in user),
-    Trips that direct the user to the page with all the user's travels and Log out to disconnect.
+<!--In this navigation bar, we have inserted the left side that directs the user to the profile, and on the right side
+the following buttons can be accessed: Profile (which also shows the name of the logged-in user),
+Trips that direct the user to the page with all the user's travels and Log out to disconnect.-->
 <nav style="background-color:white; height:60;">
     <div sec:authorize="isAuthenticated()">
         <div class="container" style="margin-top:auto;">
@@ -63,14 +64,15 @@ margin-top:20px;
                     text-align:left;
                     border-spacing: 15px 1px;;">
 
-
-        <form class="form-horizontal" method="post" th:action="@{/trips/add}" th:object="${trips}">
+        <!--In this form the user completes the trip data: name of the trip, the impressions, the date of departure and return.-->
+        <form class="form-horizontal" method="post" th:action="@{/trips/add}" th:object="${trip}"
+              enctype="multipart/form-data">
 
             <div class="form-group ${status.error ? 'has-error' : ''}" style="margin-left:15px;">
-                <label class="control-label" type="text" path="trip_name" placeholder="Trip name"
+                <label class="control-label" type="text" path="tripName" placeholder="Trip name"
                        autofocus="true"><b>Trip name</b></label>
-                <input type="text" style="width: 30%;border:1px solid powderblue;" placeholder="Trip name" id="trip_name"
-                       class="form-control" name="trip_name" th:field="*{trip_name}" required/>
+                <input type="text" style="width: 30%;border:1px solid powderblue;" placeholder="Trip name" id="tripName"
+                       class="form-control" name="tripName" th:field="*{tripName}"/>
             </div>
 
             <hr>
@@ -78,32 +80,22 @@ margin-top:20px;
                 <label class="control-label" type="text" path="impressions" placeholder="Impressions"
                        autofocus="true"><b>Impressions</b></label>
                 <textarea rows="4" name="impressions" wrap="hard" style="width: 100%;border: 1px solid powderblue;"
-                          id="impressions" th:value="*{impressions}"></textarea>
+                          id="impressions" th:field="*{impressions}" required maxlength="800"></textarea>
             </div>
 
 
-            <!--<div class="form-group ${status.error ? 'has-error' : ''}" style="margin-left:15px;">-->
-                <!--<label class="control-label" type="text" path="photo1" placeholder="Photo 1"-->
-                       <!--autofocus="true" for="photo1"><b>Photo 1:</b></label>-->
-                <!--<form action="/uploadImage" method="post" id="photo1" style="border: 1px sol
-                id powderblue;"-->
-                      <!--accept="image/x-png,image/gif,image/jpeg">-->
-                    <!--<input type="file" name="photo1">-->
-                <!--</form>-->
-            <!--</div>-->
+            <div class="form-group ${status.error ? 'has-error' : ''}" style="margin-left:15px;">
+                <label class="control-label" type="text" path="uploadFirstPhoto" placeholder="uploadFirstPhoto"
+                       autofocus="true" for="UploadFirstPhoto"><b>Photo 1:</b></label>
+                <input class="form-control" id="UploadFirstPhoto" name="uploadFirstPhoto" type="file"/>
+            </div>
 
 
-            <!--<tr>-->
-                <!--<div class="form-group ${status.error ? 'has-error' : ''}" style="margin-left:15px;">-->
-                    <!--<label class="control-label" type="text" path="photo2" placeholder="Photo 2"-->
-                           <!--autofocus="true" for="photo2"><b>Photo 2:</b></label>-->
-                    <!--<form action="/uploadImage" method="post" id="photo2"-->
-                          <!--accept="image/x-png,image/gif,image/jpeg">-->
-                        <!--<input type="file" name="photo2">-->
-                    <!--</form>-->
-                <!--</div>-->
-            <!--</tr>-->
-
+            <div class="form-group ${status.error ? 'has-error' : ''}" style="margin-left:15px;">
+                <label class="control-label" type="text" path="uploadSecondPhoto" placeholder="uploadSecondPhoto"
+                       autofocus="true" for="UploadSecondPhoto"><b>Photo 1:</b></label>
+                <input class="form-control" id="UploadSecondPhoto" name="uploadSecondPhoto" type="file"/>
+            </div>
 
             <tr>
                 <div class="form-group">

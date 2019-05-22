@@ -6,10 +6,15 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Edit your profile - The Travel Hack</title>
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+            integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
 </head>
 <body style=" margin-left:10px;
 margin-right:10px;
@@ -21,39 +26,44 @@ margin-top:20px;
   background-attachment: fixed;
   background-position: center;
   background-size: cover;">
-<nav style="background-color:white; height:60;" >
+<nav style="background-color:white; height:60;">
     <div sec:authorize="isAuthenticated()">
         <div class="container" style="margin-top:auto;">
             <div class="navbar-header">
                 <a class="navbar-brand" th:href="@{/profile}">
 
-                    <img src="https://thetravelhack.com/wp-content/uploads/2014/06/LOGO-BLUE-LIGHT-TAG.png" alt="Travel" width="120" height="" style="margin-top: 0px;margin-left:0px;"/>
+                    <img src="https://thetravelhack.com/wp-content/uploads/2014/06/LOGO-BLUE-LIGHT-TAG.png" alt="Travel"
+                         width="120" height="" style="margin-top: 0px;margin-left:0px;"/>
                 </a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right" style="margin-top:6;">
-                    <li><a th:href="@{/profile} ">Profile:<span th:text ="${#authentication.getPrincipal().getFirstName()}"></span></a></li>
+                    <li><a th:href="@{/profile} ">Profile:<span
+                            th:text="${#authentication.getPrincipal().getFirstName()}"></span></a></li>
                     <li><a th:href="@{/trips}">Trips</a></li>
                     <li><a th:href="@{/login}">Log out</a></li>
                 </ul>
             </div>
         </div>
     </div>
-</nav><br><br>
-    <div class="container" align="center">
-        <div class="profile-box"
-             style="position:center;
+</nav>
+<br><br>
+<div class="container" align="center">
+    <div class="profile-box"
+         style="position:center;
                 	width:60%;
                 	top: 30px;
                	    bottom: 0px;
                 	border: 2px solid powderblue;
                 	padding: 30px;
                 	background-color:white;
-                    text-align:left;margin-left:20px;">
-            <div sec:authorize="isAuthenticated()">
+                    text-align:left;
+                    margin-left:20px;">
+        <div sec:authorize="isAuthenticated()">
             <img src="https://thetravelhack.com/wp-content/uploads/2014/06/LOGO-BLUE-LIGHT-TAG.png" alt="Travel"
                  class="center" width="250" height="" style=" display: block;margin-left: auto;margin-right: auto;"/>
-            <h1 style="font-size:200%;font-weight:bold;font-family:helvetica;"><span th:text ="${#authentication.getPrincipal().getFirstName()}"/>'s profile</h1>
+            <h1 style="font-size:200%;font-weight:bold;font-family:helvetica;"><span
+                    th:text="${#authentication.getPrincipal().getFirstName()}"/>'s profile</h1>
             <hr>
             <form method="POST" th:action="@{/profile}" modelAttribute="userForm" class="form-signin"
                   th:object="${profile}">
@@ -61,71 +71,88 @@ margin-top:20px;
                 <div class="form-group ${status.error ? 'has-error' : ''}">
                     <br><label class="control-label" align="center" type="text" path="firstName" placeholder="Firstname"
                                autofocus="true"><b>First Name</b></label>
-                    <input type="text" style="width:50%;" placeholder="First Name" class="form-control" name="firstName"
-                           th:field="*{firstName}" required>
+                    <input type="text" style="width:280px;" placeholder="First Name" class="form-control"
+                           name="firstName" th:field="*{firstName}" required minlength="3" maxlength="29"/>
                 </div>
 
                 <div class="form-group ${status.error ? 'has-error' : ''}">
                     <br><label class="control-label" align="center" type="text" path="lastName" placeholder="Lastname"
                                autofocus="true"><b>Last Name</b></label>
-                    <input type="text" placeholder="Last Name" style="width:50%;" class="form-control" name="lastName"
-                           th:field="*{lastName}" required>
+                    <input type="text" placeholder="Last Name" style="width:280px;" class="form-control" name="lastName"
+                           th:field="*{lastName}" required minlength="3" maxlength="29"/>
                 </div>
 
 
                 <div class="form-group ${status.error ? 'has-error' : ''}">
                     <br><label class="control-label" align="center" type="text" path="username" placeholder="Username"
                                autofocus="true" style="text-align:left;"><b>Username</b></label>
-                    <input type="text" placeholder="Username" style="width:50%;" class="form-control" name="username"
-                           th:field="*{username}" required>
+                    <input type="text" placeholder="Username" style="width:280px;" class="form-control" name="username"
+                           th:field="*{username}" required minlength="3" maxlength="15"/>
                 </div>
-
 
                 <div class="form-group ${status.error ? 'has-error' : ''}">
                     <label type="password" path="password" align="center" class="control-label" placeholder="Password"
                            autofocus="true"><b>Password</b></label>
-                    <input type="password" style="width:50%;;" placeholder="Password" id="myInput" size="10px"
-                           class="form-control" name="password" th:field="*{password}" required>
-                    <button class="btn btn-lg btn-primary btn-block" type="button"
-                            style="width:50%;display:inline-block;" title="Mask/Unmask password to check content"
-                            onclick="myFunction()">Show Password
-                    </button>
+                    <table>
+                        <tr>
+                            <td><input type="password" style="width:280px;" placeholder="Password" id="myInput"
+                                       size="10px"
+                                       class="form-control" name="password" th:field="*{password}" required minlength="10" maxlength="40" pattern="^(?=.*[0-9])(?=.*[a-z]).{10,}$"/></td>
+
+                            <td><p></p></td>
+
+                            <td>
+                                <div class="form-group" align="right">
+                                    <button class="btn btn-primary btn-block" type="button"
+                                            style="width:160px;display: flex; justify-content: right;"
+                                            title="Mask/Unmask password to check content"
+                                            onclick="myFunction()">Show Password
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
 
                     <div class="form-group ${status.error ? 'has-error' : ''}">
-                        <label type="password" path="passwordConfirm" align="center" class="control-label" placeholder="Confirm your password"
+                        <label type="password" path="passwordConfirm" align="center" class="control-label"
+                               placeholder="Confirm your password"
                                autofocus="true"><b>Confirm your password</b></label>
-                        <input type="password" style="width:50%;;" placeholder="Confirm your password" size="10px"
-                               class="form-control" name="passwordConfirm" th:field="*{passwordConfirm}" required>
+                        <input type="password" style="width:280px;" placeholder="Confirm your password" size="10px"
+                               class="form-control" name="passwordConfirm" th:field="*{passwordConfirm}" required minlength="10" maxlength="40" pattern="^(?=.*[0-9])(?=.*[a-z]).{10,}$"/>
 
 
-                    <div class="form-group ${status.error ? 'has-error' : ''}">
-                        <br><label class="control-label" align="center" type="text" path="city" placeholder="City"
-                                   autofocus="true" style="text-align:left;"><b>City</b></label>
-                        <input type="text" placeholder="City" style="width:50%;" class="form-control" name="city"
-                               th:field="*{city}" required>
+                        <div class="form-group ${status.error ? 'has-error' : ''}">
+                            <br><label class="control-label" align="center" type="text" path="city" placeholder="City"
+                                       autofocus="true" style="text-align:left;"><b>City</b></label>
+                            <input type="text" placeholder="City" style="width:280px;" class="form-control" name="city"
+                                   th:field="*{city}" required minlength="3" maxlength="20"/>
+                        </div>
+
+
+                        <div class="form-group ${status.error ? 'has-error' : ''}">
+                            <br><label class="control-label" align="center" type="text" path="adress"
+                                       placeholder="Adress"
+                                       autofocus="true" style="text-align:left;"><b>Adress</b></label>
+                            <input type="text" placeholder="Adress" style="width:280px;" class="form-control"
+                                   name="adress"
+                                   th:field="*{adress}" required minlength="3" maxlength="150"/>
+                        </div>
+
+                        <div class="form-group ${status.error ? 'has-error' : ''}">
+                            <br><label class="control-label" align="center" type="text" path="phone" placeholder="Phone"
+                                       autofocus="true" style="text-align:left;"><b>Phone</b></label>
+                            <input type="text" placeholder="Phone" style="width:280px;" class="form-control"
+                                   name="phone"
+                                   th:field="*{phone}" required minlength="10" maxlength="10" />
+                        </div>
+
                     </div>
 
 
-                    <div class="form-group ${status.error ? 'has-error' : ''}">
-                        <br><label class="control-label" align="center" type="text" path="adress" placeholder="Adress"
-                                   autofocus="true" style="text-align:left;"><b>Adress</b></label>
-                        <input type="text" placeholder="Adress" style="width:50%;" class="form-control" name="adress"
-                               th:field="*{adress}" required>
-                    </div>
-
-                    <div class="form-group ${status.error ? 'has-error' : ''}">
-                        <br><label class="control-label" align="center" type="text" path="phone" placeholder="Phone"
-                                   autofocus="true" style="text-align:left;"><b>Phone</b></label>
-                        <input type="text" placeholder="Phone" style="width:50%;" class="form-control" name="phone"
-                               th:field="*{phone}" required>
-                    </div>
-
-                </div>
-
-
-                <button class="btn btn-lg btn-primary btn-block"
-                        style="width:50%;display: flex; justify-content: center;align:right" type="submit">Edit profile
-                </button>
+                    <button class="btn btn-lg btn-primary btn-block"
+                            style="width:50%;display: flex; justify-content: center;align:right" type="submit">Edit
+                        profile
+                    </button>
                 </div>
             </form>
             <script>
@@ -137,6 +164,7 @@ function myFunction() {
     x.type = "password";
   }
 }
+
 
             </script>
 
@@ -154,6 +182,7 @@ function myFunction() {
                 browser.</p>
         </div>
     </div>
-    </div>
+</div>
 </div>
 </body>
+

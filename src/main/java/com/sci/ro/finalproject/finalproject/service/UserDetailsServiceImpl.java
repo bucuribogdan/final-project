@@ -1,8 +1,6 @@
 package com.sci.ro.finalproject.finalproject.service;
 
-import com.sci.ro.finalproject.finalproject.model.CustomTripsDetails;
 import com.sci.ro.finalproject.finalproject.model.CustomUserDetails;
-import com.sci.ro.finalproject.finalproject.model.Role;
 import com.sci.ro.finalproject.finalproject.model.Users;
 import com.sci.ro.finalproject.finalproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +20,18 @@ public class UserDetailsServiceImpl implements UserDetailsService{
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * In this method we check the username authority on this platform.
+     *
+     *@param username the name chosen by the user
+     *
+     */
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) {
         Users user = userRepository.findByUsername(username);
         if (user == null) throw new UsernameNotFoundException(username);
-
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-
         grantedAuthorities.add(new SimpleGrantedAuthority("rol"));
 //        for (Role role : user.getRoles()){
 //            grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));

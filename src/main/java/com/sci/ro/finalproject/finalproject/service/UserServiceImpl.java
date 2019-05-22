@@ -1,23 +1,24 @@
 package com.sci.ro.finalproject.finalproject.service;
 
 import com.sci.ro.finalproject.finalproject.model.Users;
-import com.sci.ro.finalproject.finalproject.repository.RoleRepository;
 import com.sci.ro.finalproject.finalproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private RoleRepository roleRepository;
+
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    /**
+     * This method saves encrypted passwords in the database.
+     *
+     * @param user represents the new user
+     */
     @Override
     public void save(Users user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
@@ -26,6 +27,13 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
+    /**
+     * This method looks for a user by username.
+     *
+     * @param username the name chosen by the user
+     * @return true if username exists in database
+     * @return false if username does not exists in database
+     */
     @Override
     public Users findByUsername(String username) {
         return userRepository.findByUsername(username);

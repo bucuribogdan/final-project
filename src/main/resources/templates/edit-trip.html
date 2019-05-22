@@ -1,0 +1,191 @@
+<c:set var="contextPath" value="${pageContext.request.contextPath}"
+       xmlns:c="http://www.springframework.org/schema/beans"/>
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Edit your profile - The Travel Hack</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+            integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+</head>
+<body style=" margin-left:10px;
+margin-right:10px;
+margin-top:20px;
+  background:url(http://www.barraques.cat/imgdirs/big/53/537714_beach-wallpaper-download.jpg);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  height: 100%;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;">
+
+<!--In this navigation bar, we have inserted the left side that directs the user to the profile, and on the right side
+the following buttons can be accessed: Profile (which also shows the name of the logged-in user),
+Trips that direct the user to the page with all the user's travels and Log out to disconnect.-->
+<nav style="background-color:white; height:60;">
+    <div sec:authorize="isAuthenticated()">
+        <div class="container" style="margin-top:auto;">
+            <div class="navbar-header">
+                <a class="navbar-brand" th:href="@{/profile}">
+
+                    <img src="https://thetravelhack.com/wp-content/uploads/2014/06/LOGO-BLUE-LIGHT-TAG.png" alt="Travel"
+                         width="120" height="" style="margin-top: 0px;margin-left:0px;"/>
+                </a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right" style="margin-top:6;">
+                    <li><a th:href="@{/profile} ">Profile:<span
+                            th:text="${#authentication.getPrincipal().getFirstName()}"></span></a></li>
+                    <li><a th:href="@{/trips}">Trips</a></li>
+                    <li><a th:href="@{/login}">Log out</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+<br><br>
+<div class="container" align="center">
+    <div class="trip-box"
+         style="position:center;
+                	width:1000;
+                	top: 30px;
+               		bottom: 0px;
+                	border: 2px solid powderblue;
+                	padding: 30px;
+                	background-color:white;
+                    text-align:left;margin-left:20px;">
+
+
+        <form class="form-horizontal" th:action="@{/trips/edit}" th:object="${trip}" method="post"
+              enctype="multipart/form-data">
+
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <br><label class="control-label" align="center" type="text" path="tripName" placeholder="Trip name"
+                           autofocus="true"><b>Trip name</b></label>
+                <input type="text" style="width:50%;" placeholder="Trip name" class="form-control" name="tripName"
+                       th:field="*{tripName}" required minlength="3" maxlength="30">
+            </div>
+
+
+            <hr>
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <br><label class="control-label" align="center" type="text" path="impressions" placeholder="Impressions"
+                           autofocus="true"><b>Impressions</b></label>
+                <textarea rows="4" name="impressions" wrap="hard" style="width: 100%;"
+                          id="impressions" th:field="*{impressions}" required minlength="20"
+                          maxlength="2000"></textarea>
+            </div>
+
+
+            <br><br><label class="control-label" align="center" type="text" path="photos" placeholder="Photos"
+                           autofocus="true"><b>Photos:</b></label>
+
+            <br>
+            <div class="form-group">
+
+                <aside>
+                    <div class="photos-box " style="position: relative;  float:left;
+  width:600;
+  height:300;
+  top: 0px;
+  bottom: 0px;
+  border: 1px solid grey;
+  padding: 30px;
+background-color:white;">
+                        <aside style="position: relative;
+                        float:right;
+                        width:255px;
+                        height:240px;
+                        top: 0px;
+                        bottom: 0px;
+                        border: 1px solid white;
+                        padding: 1px;
+                        margin-right:10px;
+                        background-color:white;">
+                            <div class="amenities-thumb">
+                                <img th:src="@{${'/photos/' + trip.firstPhoto}}" alt="firstPhoto"
+                                     class="center" width="253" height="170"/>
+                            </div>
+                        </aside>
+
+                        <section style="position: relative;
+                        float:left;
+                        width:255px;
+                        height:240px;
+                        top: 0px;
+                        bottom: 0px;
+                        border: 1px solid white;
+                        padding: 1px;
+                        margin-right:10px;
+                        background-color:white;">
+                            <div class="center">
+                                <img th:src="@{${'/photos/' + trip.secondPhoto}}" alt="secondPhoto" class="center"
+                                     width="253" height="170"/>
+                            </div>
+                        </section>
+                    </div>
+                </aside>
+
+
+                <section>
+                    <div id="info-box" class="info-box" style="display:block;
+                    position: relative;
+                    float:right;
+                    width:300px;">
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="dateFrom">Date from:</label>
+
+                            <input class="form-control" id="dateFrom" type="date"
+                                   style="border: 1px solid grey;width: 180px;"
+                                   th:field="*{dateFrom}"/>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="dateTo">Date to:</label>
+
+                            <input class="form-control" id="dateTo" type="date" align="left"
+                                   style="border: 1px solid grey;width: 180px;"
+                                   th:field="*{dateTo}"/><br><br>
+                        </div>
+
+
+                    </div>
+                </section>
+            </div>
+
+
+            <div class="form-group" align="center">
+                <button class="btn btn-lg btn-primary btn-block"
+                        style="width:30%;display: flex; justify-content: center;"
+                        type="submit">Edit profile
+                </button>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="footer" style="position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 25px;
+  background-color: white;
+  color: black;
+  font-weight:bold;
+  text-align: center;">
+        <p>©The Travel Hack - 2019. EU legislation: By signing in, I agree that Travel could set cookies in my
+            browser.</p>
+    </div>
+</div>
+</body>
+</html>

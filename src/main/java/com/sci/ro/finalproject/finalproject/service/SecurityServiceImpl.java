@@ -20,6 +20,12 @@ public class SecurityServiceImpl implements SecurityService{
 
     private static final Logger logger = LoggerFactory.getLogger(SecurityServiceImpl.class);
 
+    /**
+     * This method looks for the user who is logged in.
+     *
+     * @return username if someone is logged in
+     * @return null if nobody is logged in
+     */
     @Override
     public String findLoggedInUsername() {
         Object userDetails = SecurityContextHolder.getContext().getAuthentication().getDetails();
@@ -30,6 +36,12 @@ public class SecurityServiceImpl implements SecurityService{
         return null;
     }
 
+    /**
+     * This method keeps the user logged in for a certain amount of time.
+     *
+     * @param username the name chosen by the user
+     * @param password profile access code
+     */
     @Override
     public void autoLogin(String username, String password) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
